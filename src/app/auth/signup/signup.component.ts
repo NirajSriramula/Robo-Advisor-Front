@@ -66,10 +66,7 @@ export class SignupComponent implements OnInit {
       this.authService
         .signup(
           this.name?.value,
-          this.email?.value,
-          this.password?.value,
-          this.preferedType?.value,
-          this.location?.value
+          this.password?.value
         )
         .subscribe(
           (response: any) => {

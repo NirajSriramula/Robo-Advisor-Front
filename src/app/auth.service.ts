@@ -16,29 +16,20 @@ export class AuthService {
   static role = '';
   constructor(private http: HttpClient, private router: Router) {}
 
-  headers = new HttpHeaders().set('content-type', 'application/json');
+  headers = new HttpHeaders().set('content-type', 'multipart/form-data');
   signup(
-    name: string,
-    email: string,
+    username: string,
     password: string,
-    preferredType: string,
-    location: string
   ) {
-    const url = `${this.serverUrl}/user/signup`;
-    const role = 'ROLE_USER';
-    if (preferredType.includes(':')) {
-      preferredType = preferredType.substring(3);
-    }
+    let risk_parameter=0;
+    const url = `${this.serverUrl}/signup`;
     return this.http
       .post(
         url,
         {
-          name,
-          email,
+          username,
           password,
-          preferredType,
-          location,
-          role,
+          risk_parameter,
         },
         {
           headers: this.headers,
@@ -46,6 +37,7 @@ export class AuthService {
       )
       .pipe(catchError(this.handleError));
   }
+
   signin(username: string, password: string) {
     const url = this.serverUrl + '/login?username=' + username + '&password=' + password;
     return this.http
@@ -54,79 +46,12 @@ export class AuthService {
       )
       .pipe(catchError(this.handleError));
   }
-  resetPassword(resetToken: string, password: string, confirmpassword: string) {
-    const url = `${this.serverUrl}/user/resetPassword?q=` + resetToken;
-    console.log(url);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    return this.http.post(
-      url,
-      { password: password, passwordConfirm: confirmpassword },
-      { headers: this.headers }
-    );
-  }
-  forgotPassword(email: string) {
-    const url = `${this.serverUrl}/user/forgotPassword `;
-    console.log(url);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    return this.http.post(url, { email }, { headers: this.headers });
-  }
-  isAdmin() {
-    let jwt = localStorage.getItem('token');
-    let id = localStorage.getItem('campaignId');
-    let url = `${this.serverUrl}/ad/adDetail/` + id;
-    console.log(url);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + jwt,
-    });
-    this.http.get(`${this.serverUrl}/ad/`, { headers }).subscribe(
-      (result) => {
-        console.log(result);
-        this.router.navigate(['/admin/stats']);
-        return true;
-      },
-      (error) => {
-        this.router.navigate(['/']);
-      }
-    );
-  }
+  
   IsLoggedIn() {
     return !!localStorage.getItem('token');
-  }
-  getUserDetails() {
-    const url = `${this.serverUrl}/user/getDetails`;
-    let token: string = localStorage.getItem('token') || '';
-
-    const headers = new HttpHeaders()
-      .set('content-type', 'application/json')
-      .set('Authorization', `Bearer ${token}`);
-    console.log(this.headers);
-    return this.http
-      .get(url, { headers: headers })
-      .pipe(catchError(this.handleError));
   }
   handleError(error: HttpErrorResponse) {
     console.log(error);
     return throwError(error.error);
-  }
-  Logout = () => {
-    console.log('inside logout');
-  };
-  ForgotPassword(email: string) {
-    const url = `${this.serverUrl}/user/forgotPassword`;
-    const headers = new HttpHeaders().set('content-type', 'application/json');
-    return this.http.post(url, { email }).pipe(catchError(this.handleError));
-  }
-
-  PasswordReset(resetToken: string, password: string, passwordConfirm: string) {
-    const url = `${this.serverUrl}/user/forgotPassword/${resetToken}`;
-    const headers = new HttpHeaders().set('content-type', 'application/json');
-    return this.http
-      .post(url, { password, passwordConfirm })
-      .pipe(catchError(this.handleError));
   }
 }
