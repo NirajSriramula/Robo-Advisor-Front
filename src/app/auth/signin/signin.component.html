@@ -1,0 +1,77 @@
+<main class="authentication-page">
+  <section class="auth container">
+    <div class="auth-card">
+      <h3>Sign In</h3>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <p *ngIf="error" class="errMsg">
+          {{ errorMessage }}
+          <span class="close" (click)="closeErrMsg()"
+            ><i class="bi bi-x"></i
+          ></span>
+        </p>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <div class="row input-field">
+            <span class="input-icon">
+              <i class="bi bi-envelope"></i>
+            </span>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              formControlName="email"
+            />
+          </div>
+          <div *ngIf="email?.touched && email?.invalid" class="warning">
+            <i class="bi bi-exclamation-circle-fill"></i> Invalid Email Address
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="row">
+            <label for="password">Password</label>
+          </div>
+          <div class="row input-field">
+            <span class="input-icon">
+              <i class="bi bi-unlock"></i>
+            </span>
+            <input
+              type="{{ showPass === true ? 'text' : 'password' }}"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              formControlName="password"
+            />
+            <span (click)="onEyeClick()" class="input-icon">
+              <i class="bi bi-eye"></i>
+            </span>
+          </div>
+          <div class="warning" *ngIf="password?.touched && password?.invalid">
+            <i class="bi bi-exclamation-circle-fill"></i>
+            Password is required
+          </div>
+        </div>
+        <button type="submit" class="btn">
+          <span class="loading" *ngIf="loading"></span>Sign In
+        </button>
+      </form>
+      <div class="head-right">
+        <span>Do not have an account?</span>
+        <a [routerLink]="['/auth/signup']" class="btn btn--outline btn--round">
+          Create an account
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- <footer class="footer">
+    <div class="container">
+      <div class="left">
+        <span>© 2021 ReadALike</span>
+      </div>
+      <div class="right">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms and Conditions</a>
+      </div>
+    </div>
+  </footer> -->
+</main>

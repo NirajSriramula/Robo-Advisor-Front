@@ -1,0 +1,143 @@
+@import "/src/variable.scss";
+.navbar {
+  padding: 8px 0;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+
+  .container,
+  .navbar-brand,
+  .search-bar,
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar-brand {
+    gap: 8px;
+    h5 {
+      color: $theme-dark;
+      margin: 0;
+    }
+  }
+
+  .search-bar {
+    border: 1px solid #ccc;
+
+    input {
+      background-color: transparent;
+      height: 35px;
+      width: calc(100% - 35px);
+      border: none;
+      outline: none;
+      padding: 0 12px;
+    }
+
+    button.search-btn {
+      cursor: pointer;
+      height: 35px;
+      width: 35px;
+      background-color: $theme-primary;
+      border: none;
+      color: #fff;
+    }
+  }
+
+  .navbar-right {
+    gap: 16px;
+  }
+
+  .dropdown {
+    position: relative;
+
+    .dropdown-btn {
+      display: inline-block;
+      height: 40px;
+      width: 40px;
+      border-radius: 50px;
+      border: 1px solid #ccc;
+    }
+
+    .dropdown-content {
+      z-index: 9;
+      position: absolute;
+      width: 260px;
+      right: -16px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 1px 3px 12px 4px rgba(0, 0, 0, 0.04),
+        5px 6px 6px 2px rgba(0, 0, 0, 0.04);
+      animation: fadeInDown 150ms ease-out;
+      display: none;
+
+      > a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        color: $theme-primary;
+        border-bottom: 1px solid #eee;
+
+        &:hover {
+          background-color: $theme-primary;
+          color: #fff;
+        }
+
+        &:last-child {
+          border: none;
+        }
+      }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      border-bottom: 1px solid #ddd;
+
+      .logout-btn {
+        cursor: pointer;
+        border: none;
+        border-radius: 3px;
+        background-color: rgb(255, 33, 33);
+        color: #fff;
+        padding: 5px 12px;
+      }
+
+      h5 {
+        margin: 0;
+        padding-right: 24px;
+      }
+    }
+
+    &:hover {
+      .dropdown-content {
+        display: block;
+      }
+    }
+  }
+
+  .profile {
+    margin-left: 16px;
+
+    .dropdown-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $theme-variant-three;
+      font-size: 21px;
+    }
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0.2;
+    transform: translateY(40px);
+  }
+  100% {
+    transform: none;
+  }
+}

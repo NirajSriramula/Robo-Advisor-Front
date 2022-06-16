@@ -1,0 +1,136 @@
+<main class="authentication-page">
+  <header class="header">
+    <div class="container">
+      
+    </div>
+  </header>
+  <section class="auth container">
+    <div class="auth-card">
+      <h3>Get Started</h3>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <p class="errMsg" *ngIf="error">
+          {{ errorMessage }}
+          <span (click)="closeErrMsg()" class="close"
+            ><i class="bi bi-x"></i
+          ></span>
+        </p>
+        <div class="input-group">
+          <label for="name">Name</label>
+          <div class="row input-field">
+            <span class="input-icon">
+              <i class="bi bi-person"></i>
+            </span>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter your name"
+              formControlName="name"
+            />
+          </div>
+          <div *ngIf="name?.touched && name?.invalid" class="warning">
+            <i class="bi bi-exclamation-circle-fill"></i
+            ><span *ngIf="name?.errors?.['required']">Name is required.</span>
+            <span *ngIf="name?.errors?.['minlength']"
+              >Name should be minimum
+              {{ name?.errors?.['minlength'].requiredlength }}.</span
+            >
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <div class="row input-field">
+            <span class="input-icon">
+              <i class="bi bi-envelope"></i>
+            </span>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter your email"
+              formControlName="email"
+            />
+          </div>
+          <div *ngIf="email?.touched && email?.invalid" class="warning">
+            <i class="bi bi-exclamation-circle-fill"></i> Invalid Email Address
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <div class="row input-field">
+            <span class="input-icon">
+              <i class="bi bi-unlock"></i>
+            </span>
+            <input
+              type="{{ showPass === true ? 'text' : 'password' }}"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              formControlName="password"
+            />
+            <span class="input-icon" (click)="onEyeClick()">
+              <i class="bi bi-eye"></i>
+            </span>
+          </div>
+          <div *ngIf="password?.touched && password?.invalid" class="warning">
+            <i class="bi bi-exclamation-circle-fill"></i> Password is required.
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="confirmPwd">Confirm Password</label>
+          <div class="row input-field">
+            <span class="input-icon">
+              <i class="bi bi-unlock"></i>
+            </span>
+            <input
+              type="{{ showCpass === true ? 'text' : 'password' }}"
+              id="confirmPwd"
+              name="confirmPwd"
+              placeholder="Enter your password"
+              formControlName="confirmPassword"
+            />
+            <span class="input-icon" (click)="onCEyeClick()">
+              <i class="bi bi-eye"></i>
+            </span>
+          </div>
+          <div
+            *ngIf="confirmPassword?.touched && confirmPassword?.invalid"
+            class="warning"
+          >
+            <i class="bi bi-exclamation-circle-fill"></i> Confirm Password is
+            required
+          </div>
+        </div>
+
+       
+        <div class="input-group">
+          <label for="location">Location</label>
+          <div class="row input-field">
+            <span class="input-icon">
+              <i class="bi bi-geo"></i>
+            </span>
+            <input
+              type="text"
+              id="location"
+              formControlName="location"
+              placeholder="Location"
+            />
+          </div>
+          <div *ngIf="location?.touched && location?.invalid" class="warning">
+            <i class="bi bi-exclamation-circle-fill"></i> Location is required.
+          </div>
+        </div>
+        <button type="submit" class="btn">
+          <span class="loading" *ngIf="loading"></span>
+          Sign Up
+        </button>
+      </form>
+      <div class="head-rght">
+        <span>Already have an account?</span>
+        <a class="btn btn--outline btn--round" [routerLink]="['/auth/signin']"
+          >Sign In</a
+        >
+      </div>
+    </div>
+  </section>
+</main>

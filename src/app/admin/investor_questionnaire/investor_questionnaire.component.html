@@ -1,0 +1,27 @@
+<h3>Investor Questionnaire</h3>
+<!-- <form>
+  <fieldset id="group1">
+    <input type="radio" value="value1" name="group1">
+    <input type="radio" value="value2" name="group1">
+  </fieldset>
+
+  <fieldset id="group2">
+    <input type="radio" value="value1" name="group2">
+    <input type="radio" value="value2" name="group2">
+    <input type="radio" value="value3" name="group2">
+  </fieldset>
+</form> -->
+<div class="container">
+  <form [formGroup]="myform" (ngSubmit)="submit()">
+    <div class="form-group" *ngFor="let question of questions">
+      <label for="sport" class="laab">{{question.question}}</label>
+      <fieldset *ngFor="let sport of sportsList[question.id]">
+        <input id="sport q-{{sport.id}}" type="radio" value="{{sport.value}}" name="{{question.question}}" (click)="onclicks(sport.id,question.id)">
+        <label for="Answer-{{sport.id}}">{{sport.label}}</label>
+      </fieldset>
+    </div>
+    <button type="submit" class="btn">
+      submit
+    </button>
+  </form>
+</div>

@@ -1,0 +1,33 @@
+<header class="navbar">
+  <div class="container">
+   
+    <a
+      [routerLink]="['/admin/stats']"
+      class="navbar-brand"
+    >
+      <h5>Robo Advisor</h5>
+    </a>
+    <div class="navbar-right">
+ 
+      <div class="dropdown profile">
+        <button class="dropdown-btn">
+          <i class="bi bi-person-fill"></i>
+        </button>
+        <div class="dropdown-content">
+          <div class="header">
+            <h5>Hello, {{ this.name }}</h5>
+            <button (click)="Logout()" class="logout-btn" title="Logout">
+              <i class="bi bi-box-arrow-right"></i>
+            </button>
+          </div>
+          <a [routerLink]="['/admin/dashboard']"
+            ><i class="bi bi-house-fill"></i>Home</a
+          >
+          <a [routerLink]="['/admin/questionnaire']"
+            ><i class="bi bi-eye-fill"></i>Change investment style</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
