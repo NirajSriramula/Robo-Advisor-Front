@@ -20,29 +20,6 @@
       margin: 0;
     }
   }
-
-  .search-bar {
-    border: 1px solid #ccc;
-
-    input {
-      background-color: transparent;
-      height: 35px;
-      width: calc(100% - 35px);
-      border: none;
-      outline: none;
-      padding: 0 12px;
-    }
-
-    button.search-btn {
-      cursor: pointer;
-      height: 35px;
-      width: 35px;
-      background-color: $theme-primary;
-      border: none;
-      color: #fff;
-    }
-  }
-
   .navbar-right {
     gap: 16px;
   }
@@ -76,11 +53,11 @@
         align-items: center;
         gap: 8px;
         padding: 8px 16px;
-        color: $theme-primary;
+        color: #df89bc;;
         border-bottom: 1px solid #eee;
 
         &:hover {
-          background-color: $theme-primary;
+          background-color: #ffbfbf;
           color: #fff;
         }
 

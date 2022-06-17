@@ -1,7 +1,6 @@
 import { AdminService } from '../admin.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { DialogComponent } from 'src/app/dialog/dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,23 +9,38 @@ import { DialogComponent } from 'src/app/dialog/dialog.component';
 })
 export class DashBoardComponent implements OnInit {
   investedAmount = 0;
+  public show:boolean = false;
   animal: string | undefined;
   name: string | undefined;
-  openDialog() {
-    console.log("Inside openDialog");
-    let dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
-      data: { name: this.name, animal: this.animal }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+  value:any ;
+  buttonName: string="Update Amount";
+  conss(){
+    if(this.value<0){this.value=0;}
+    console.log(this.value);
+  }
+  openDialog(){
+    this.show = !this.show;
+    if(this.show){
+      this.buttonName = "Change Amount";
+  }
+  else{
+    this.openDialogue();
+    this.buttonName = "Update Amount";
+  }
+  }
+  openDialogue() {
+    this.adminService.addMoney(parseInt(this.value),"" + localStorage.getItem("sessionId")).subscribe((response:any)=>{
+      console.log(response);
+      this.investedAmount = this.value;
+      localStorage.setItem("amount",response.portfolio_value);
     });
   }
   constructor(private adminService: AdminService,public dialog: MatDialog) { }
 
-  ngOnInit(): void {
-    this.investedAmount = 100
+  ngOnInit(): void {    
+    this.investedAmount = 0
+    if(localStorage.getItem("amount")!=null){
+      this.investedAmount = parseInt("" + localStorage.getItem("amount"));
+    }  
   }
 }

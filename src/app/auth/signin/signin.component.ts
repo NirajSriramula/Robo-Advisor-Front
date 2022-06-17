@@ -14,15 +14,16 @@ export class SigninComponent implements OnInit {
   errorMessage = '';
   loading = false;
   form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     password: new FormControl('', Validators.required),
   });
   constructor(private authService: AuthService, private router: Router) {
     console.log(this.password);
+    console.log(this.name);
   }
   ngOnInit(): void {}
-  get email() {
-    return this.form.get('email');
+  get name() {
+    return this.form.get('name');
   }
   get password() {
     return this.form.get('password');
@@ -32,10 +33,22 @@ export class SigninComponent implements OnInit {
     this.loading = true;
     if (this.form.valid) {
       //signin call to be made
-      this.router.navigate(['/admin/dashboard']);
-      
+      //this.router.navigate(['/admin/dashboard']);
       console.log('beforecall');
-      console.log('aftercall');
+      this.authService.signin(this.name?.value,this.password?.value).subscribe((response:any)=>{
+        console.log(response.sessionId);
+        localStorage.setItem("sessionID",response.sessionId);
+        localStorage.setItem("name",this.name?.value);
+        console.log('aftercall');
+        this.authService.get_risk(response.sessionId).subscribe((response1:any)=>{
+          if(response1.risk_parameter>1){
+            this.router.navigate(['/admin/questionnaire']);
+          }
+          else{
+            this.router.navigate(['/admin/dashboard']);
+          }
+        })
+      })
     } else {
       this.error = true;
       this.errorMessage = 'Please fill the form correctly';

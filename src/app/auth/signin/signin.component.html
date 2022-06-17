@@ -10,20 +10,20 @@
           ></span>
         </p>
         <div class="input-group">
-          <label for="email">Email</label>
+          <label for="email">Username</label>
           <div class="row input-field">
             <span class="input-icon">
-              <i class="bi bi-envelope"></i>
+              <i class="bi bi-person"></i>
             </span>
             <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Enter your email"
-              formControlName="email"
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter username"
+              formControlName="name"
             />
           </div>
-          <div *ngIf="email?.touched && email?.invalid" class="warning">
+          <div *ngIf="name?.touched && name?.invalid" class="warning">
             <i class="bi bi-exclamation-circle-fill"></i> Invalid Email Address
           </div>
         </div>

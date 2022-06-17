@@ -4,7 +4,7 @@ import { DashBoardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InvestorQuestionnaireComponent } from './investor_questionnaire/investor_questionnaire.component';
-
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -31,6 +31,7 @@ import { PortfolioComponent } from './dashboard/portfolio/portfolio.component';
     CommonModule,
     MatDialogModule,
     MatGridListModule,
+    FormsModule,
     AdminRoutingModule,
     CoreModule,
     NgxPaginationModule,

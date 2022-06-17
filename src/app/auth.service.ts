@@ -16,28 +16,21 @@ export class AuthService {
   static role = '';
   constructor(private http: HttpClient, private router: Router) {}
 
-  headers = new HttpHeaders().set('content-type', 'multipart/form-data');
+  headers = new HttpHeaders().set('content-type', 'application/json');
   signup(
     username: string,
     password: string,
   ) {
-    let risk_parameter=0;
-    const url = `${this.serverUrl}/signup`;
+    let risk_parameter=1.5;
+    const url = this.serverUrl + '/signup?username=' + username + '&password=' + password;
     return this.http
-      .post(
-        url,
-        {
-          username,
-          password,
-          risk_parameter,
-        },
-        {
-          headers: this.headers,
-        }
-      )
+      .get(url)
       .pipe(catchError(this.handleError));
   }
-
+  get_risk(sessionId:string){
+    let url = this.serverUrl + '/get_risk_parameter?sessionId=' + sessionId;
+    return this.http.get(url);
+  }
   signin(username: string, password: string) {
     const url = this.serverUrl + '/login?username=' + username + '&password=' + password;
     return this.http
@@ -48,7 +41,11 @@ export class AuthService {
   }
   
   IsLoggedIn() {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('sessionId');
+  }
+  logout(){
+    let url = this.serverUrl + '/logout?sessionId=' + localStorage.getItem("sessionId");
+    return this.http.get(url).pipe(catchError(this.handleError));
   }
   handleError(error: HttpErrorResponse) {
     console.log(error);

@@ -8,19 +8,21 @@
                 <app-type></app-type>
             </div> 
         </mat-grid-tile>
-        <mat-grid-tile class="card" colspan="6"  rowspan="3">
+        <mat-grid-tile class="card" colspan="5"  rowspan="4">
             <div class="icon">
                 <i class="bi bi-graph-up-arrow"></i>
             </div>
             <div class="deck">
                 <h4>Amount invested</h4>
                 <h1>{{investedAmount | number:'1.2-2' }}$</h1>
+                <ng-container *ngIf="show">
+                        <input  type="number" [(ngModel)]="value" class="input_number" (change)="conss()"
+                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"/>
+                </ng-container>
                 <div class="button">
-                    <button mat-raised-button color="primary" (click)="openDialog()">Add Money</button></div>
-                <p></p>
+                <button mat-raised-button color="primary" (click)="openDialog()">{{buttonName}}</button></div>
             </div>
         </mat-grid-tile>
-
     </mat-grid-list>
     
     <br><br>

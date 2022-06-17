@@ -3,7 +3,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
-import { DialogComponent } from 'src/app/dialog/dialog.component';
 
 @Component({
   selector: 'app-navbar',
@@ -23,11 +22,14 @@ export class NavbarComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.name = "Niraj";
+    this.name = "" + localStorage.getItem("name");
   }
   Logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('sessionId');
     AuthService.role = '';
-    this.router.navigate(['auth', 'signin']);
-  }
+    this.authService.logout().subscribe((response)=>{
+      console.log(response); 
+      this.router.navigate(['auth', 'signin']);
+    });
+     }
 }

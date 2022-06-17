@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdminService } from '../admin.service';
 
 
 @Component({
@@ -59,7 +60,7 @@ export class InvestorQuestionnaireComponent implements OnInit {
     sport: new FormControl('', Validators.required),
   });
   map = new Map();
-  constructor(){}
+  constructor(private adminService:AdminService){}
   onclicks(ans:number,question:number){
       this.map.set(question,ans-1);
       console.log(ans);
@@ -78,7 +79,9 @@ export class InvestorQuestionnaireComponent implements OnInit {
     }
     risk/=this.questions.length;
     risk/=(options-1);
-    console.log(risk);}
+    console.log(risk);
+    this.adminService.update_risk(risk,""+localStorage.getItem("sessionID")).subscribe((response)=>{console.log(response)});
+  }
   
   ngOnInit(): void {
   }

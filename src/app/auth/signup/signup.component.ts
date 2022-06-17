@@ -22,8 +22,6 @@ export class SignupComponent implements OnInit {
       Validators.minLength(6),
     ]),
     confirmPassword: new FormControl('', [Validators.required]),
-    preferedType: new FormControl('', Validators.required),
-    location: new FormControl('', Validators.required),
   });
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -41,18 +39,6 @@ export class SignupComponent implements OnInit {
     return this.form.get('confirmPassword');
   }
 
-  get preferedType() {
-    return this.form.get('preferedType');
-  }
-
-  get location() {
-    return this.form.get('location');
-  }
-  changePreferedItem(e: any) {
-    this.preferedType?.setValue(e.target.value, {
-      onlyself: true,
-    });
-  }
   onSubmit() {
     this.loading = true;
     if (this.password?.value != this.confirmPassword?.value) {

@@ -103,23 +103,7 @@
         </div>
 
        
-        <div class="input-group">
-          <label for="location">Location</label>
-          <div class="row input-field">
-            <span class="input-icon">
-              <i class="bi bi-geo"></i>
-            </span>
-            <input
-              type="text"
-              id="location"
-              formControlName="location"
-              placeholder="Location"
-            />
-          </div>
-          <div *ngIf="location?.touched && location?.invalid" class="warning">
-            <i class="bi bi-exclamation-circle-fill"></i> Location is required.
-          </div>
-        </div>
+     
         <button type="submit" class="btn">
           <span class="loading" *ngIf="loading"></span>
           Sign Up
