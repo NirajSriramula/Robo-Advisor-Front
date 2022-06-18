@@ -12,6 +12,7 @@ export class SigninComponent implements OnInit {
   error = false;
   showPass = false;
   errorMessage = '';
+  isCorrect = true;
   loading = false;
   form = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -36,7 +37,8 @@ export class SigninComponent implements OnInit {
       //this.router.navigate(['/admin/dashboard']);
       console.log('beforecall');
       this.authService.signin(this.name?.value,this.password?.value).subscribe((response:any)=>{
-        console.log(response.sessionId);
+        if(response.success==true){
+          console.log(response.sessionId);
         localStorage.setItem("sessionID",response.sessionId);
         localStorage.setItem("name",this.name?.value);
         console.log('aftercall');
@@ -48,6 +50,12 @@ export class SigninComponent implements OnInit {
             this.router.navigate(['/admin/dashboard']);
           }
         })
+        }
+        else{
+          this.isCorrect = false;
+          this.loading = false;
+          console.log(response.success)
+        }
       })
     } else {
       this.error = true;

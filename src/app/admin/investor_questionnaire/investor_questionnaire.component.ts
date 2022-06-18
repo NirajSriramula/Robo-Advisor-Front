@@ -60,7 +60,8 @@ export class InvestorQuestionnaireComponent implements OnInit {
     sport: new FormControl('', Validators.required),
   });
   map = new Map();
-  constructor(private adminService:AdminService){}
+  isCorrect = true;
+  constructor(private adminService:AdminService,private router: Router){}
   onclicks(ans:number,question:number){
       this.map.set(question,ans-1);
       console.log(ans);
@@ -74,13 +75,16 @@ export class InvestorQuestionnaireComponent implements OnInit {
     let risk = 0;
     let options = 4;
     for(i=0;i<this.questions.length;i++){
+      if(!this.map.has(this.questions[i].id)){
+        this.isCorrect = false;
+      }
       risk= risk + (this.map.get(this.questions[i].id))%(options);
 
     }
     risk/=this.questions.length;
     risk/=(options-1);
     console.log(risk);
-    this.adminService.update_risk(risk,""+localStorage.getItem("sessionID")).subscribe((response)=>{console.log(response)});
+    this.adminService.update_risk(risk,""+localStorage.getItem("sessionID")).subscribe((response)=>{ this.router.navigate(['/admin/dashboard']);},(error)=>{console.log(error);});
   }
   
   ngOnInit(): void {

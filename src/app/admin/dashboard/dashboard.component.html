@@ -14,7 +14,7 @@
             </div>
             <div class="deck">
                 <h4>Amount invested</h4>
-                <h1>{{investedAmount | number:'1.2-2' }}$</h1>
+                <h1>{{investedAmount | number:'1.2-2' }}₹</h1>
                 <ng-container *ngIf="show">
                         <input  type="number" [(ngModel)]="value" class="input_number" (change)="conss()"
                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"/>

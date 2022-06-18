@@ -51,6 +51,9 @@
             Password is required
           </div>
         </div>
+        <div *ngIf="!isCorrect" class="warning">
+          <i class="bi bi-exclamation-circle-fill"></i> Invalid Credentials
+        </div>
         <button type="submit" class="btn">
           <span class="loading" *ngIf="loading"></span>Sign In
         </button>

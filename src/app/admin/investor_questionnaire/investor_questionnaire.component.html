@@ -20,6 +20,9 @@
         <label for="Answer-{{sport.id}}">{{sport.label}}</label>
       </fieldset>
     </div>
+    <div *ngIf="!isCorrect" class="warning">
+      <i class="bi bi-exclamation-circle-fill"></i> Answer all questions
+    </div>
     <button type="submit" class="btn">
       submit
     </button>

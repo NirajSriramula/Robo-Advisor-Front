@@ -2,7 +2,7 @@
   <div class="container">
    
     <a
-      [routerLink]="['/admin/stats']"
+      [routerLink]="['/admin/dashboard']"
       class="navbar-brand"
     >
       <h5>Robo Advisor</h5>
@@ -17,7 +17,7 @@
           <div class="header">
             <h5>Hello, {{ this.name }}</h5>
             <button (click)="Logout()" class="logout-btn" title="Logout">
-              <i class="bi bi-box-arrow-right"></i>
+              Logout
             </button>
           </div>
           <a [routerLink]="['/admin/dashboard']"
