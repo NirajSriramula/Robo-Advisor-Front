@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class DashBoardComponent implements OnInit {
   investedAmount = 0;
+  isAuth=false;
   public show:boolean = false;
   public showWith:boolean = false;
   public showError:boolean = false;
@@ -74,6 +75,8 @@ export class DashBoardComponent implements OnInit {
   constructor(private adminService: AdminService,public dialog: MatDialog,private router: Router) { }
 
   ngOnInit(): void {    
+    if(localStorage.getItem("sessionID")==null){this.isAuth = false;}
+    else{this.isAuth = true;}
     this.investedAmount = 0
     if(this.value==0){this.isEmpty = true;}
     else{this.isEmpty = false;}

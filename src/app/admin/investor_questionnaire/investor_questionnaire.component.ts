@@ -18,6 +18,7 @@ export class InvestorQuestionnaireComponent implements OnInit {
   {id:4,question:"Earning capacity of an investor"},
   {id:5,question:"Rate of investment knowledge & experience"}]
   dummy = 'What is the age group of investor?'
+  isAuth = false;
   sportsList = [[
     {
       id:1,
@@ -83,5 +84,7 @@ export class InvestorQuestionnaireComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    if(localStorage.getItem("sessionID")!=null){this.isAuth = true;}
+    else{this.isAuth = false;}
   }
 }

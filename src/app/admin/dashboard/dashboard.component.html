@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="isAuth">
     <h2 class="title">Investment Dashboard </h2>
     <br>
     <mat-grid-list cols="15" rowHeight="40px" gutterSize="10px">
@@ -52,7 +52,9 @@
     
     <br><br>
 </div>
-
+<div class="FourOThree" *ngIf="!isAuth">
+ERROR 401 Unauthorized...Login to access this page 
+</div>
 
 
 

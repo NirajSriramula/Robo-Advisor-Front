@@ -25,11 +25,12 @@ export class NavbarComponent implements OnInit {
     this.name = "" + localStorage.getItem("name");
   }
   Logout() {
-    localStorage.removeItem('sessionId');
+    localStorage.removeItem('sessionID');
+    localStorage.removeItem('name');
     AuthService.role = '';
     this.authService.logout().subscribe((response)=>{
       console.log(response); 
-      this.router.navigate(['auth', 'signin']);
+      this.router.navigate(['auth', 'homepage']);
     });
      }
 }
