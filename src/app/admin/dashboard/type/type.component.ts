@@ -12,17 +12,42 @@ export class TypeComponent implements OnInit {
   freq:Number[] = [];
   a: any;
   b:Number=0;
-
+  isErrors: boolean = false;
+  counter:number = 0;
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
-    this.eTFs = ["Microsoft","Uber","Facebook","Amazon","Apple","Netflix","Google"]
-    this.freq = [10,20,10,30,10,10,25]
-
-    this.adminService.getPredictions(""+localStorage.getItem("name"),""+localStorage.getItem("sessionId")).subscribe((response:any)=>{
+    this.isErrors = false;
+    console.log(this.eTFs);
+    let user = ""+localStorage.getItem("name");
+    let sessionId =""+ localStorage.getItem("sessionID");
+    this.adminService.getPredictions(user,sessionId).subscribe((response:any)=>{
       console.log(response);
-    })
-
+      let data = JSON.parse(response.weights);
+      this.counter = this.counter+1;
+      console.log(data);
+      const arr: string[] = Object.keys(data);
+      let i=0;
+      const amounts: number[] = [];
+      let amount = 1000;
+      amount = parseInt(""+localStorage.getItem("amount"));
+      this.eTFs = [];
+      for(i=0;i<arr.length;i++){
+        if(data[arr[i]]!=0){
+          this.eTFs.push(arr[i]);
+        }
+      }
+      console.log(this.eTFs);
+      for(i=0;i<this.eTFs.length;i++){
+        amounts.push(amount*data[this.eTFs[i]]);
+        console.log(amounts);
+      }
+    this.freq = amounts;
+    if(this.counter<=1){
+      myChart.destroy();
+      this.ngOnInit();
+    }
+    },(error)=>{this.isErrors = true;});
     console.log(`count array :`+this.freq)
     console.log(`count array :`+this.eTFs)
   // donut chart
@@ -53,11 +78,11 @@ export class TypeComponent implements OnInit {
           bodyAlign:'center',
           callbacks: {
             title : function(context) {
-              console.log(context);  
+              //console.log(context);  
               return `Category : ${[context[0].label]}`;
             },
             label : function(context) {
-              return `Money invested: ${[context.formattedValue]}$`;
+              return `Money invested: ${[context.formattedValue]} ₹`;
             }
           }
         }

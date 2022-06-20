@@ -13,12 +13,19 @@
 </form> -->
 <div class="container">
   <form [formGroup]="myform" (ngSubmit)="submit()">
-    <div class="form-group" *ngFor="let question of questions">
-      <label for="sport" class="laab">{{question.question}}</label>
-      <fieldset *ngFor="let sport of sportsList[question.id]">
-        <input id="sport q-{{sport.id}}" type="radio" value="{{sport.value}}" name="{{question.question}}" (click)="onclicks(sport.id,question.id)">
-        <label for="Answer-{{sport.id}}">{{sport.label}}</label>
-      </fieldset>
+    <div>
+      <div class="form-group" *ngFor="let question of questions">
+        <label for="sport" class="laab">{{question.question}}</label>
+        <fieldset *ngFor="let sport of sportsList[0]">
+          <input id="sport q-{{sport.id}}" type="radio" value="{{sport.value}}" name="{{question.question}}" (click)="onclicks(sport.id,question.id)">
+          <label for="Answer-{{sport.id}}">{{sport.label}}</label>
+        </fieldset>
+      </div>
+      <label for="age" class="laab">{{dummy}}</label>
+      <ng-container >
+        <input  type="text" class="input_number"
+        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"/>
+</ng-container>
     </div>
     <div *ngIf="!isCorrect" class="warning">
       <i class="bi bi-exclamation-circle-fill"></i> Answer all questions

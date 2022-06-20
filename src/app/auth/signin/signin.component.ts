@@ -43,6 +43,7 @@ export class SigninComponent implements OnInit {
         localStorage.setItem("name",this.name?.value);
         console.log('aftercall');
         this.authService.get_risk(response.sessionId).subscribe((response1:any)=>{
+          console.log(response1)
           if(response1.risk_parameter>1){
             this.router.navigate(['/admin/questionnaire']);
           }

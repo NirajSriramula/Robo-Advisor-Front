@@ -11,48 +11,39 @@ import { AdminService } from '../admin.service';
   styleUrls: ['./investor_questionnaire.component.scss'],
 })
 export class InvestorQuestionnaireComponent implements OnInit {
-  questions = [{id:0,question:"What is your name"},{id:1,question:"How much would you want"}]
-  sportsList = [
-    [{
+  questions = [{id:0,question:"Description of degree of risk willing to take in a quantitative form"},
+  {id:1,question:"Investment time horizon"},
+  {id:2,question:"Investment plan/goal and expected return from investment"},
+  {id:3,question:"Percentage of income/net worth  for investment"},
+  {id:4,question:"Earning capacity of an investor"},
+  {id:5,question:"Rate of investment knowledge & experience"}]
+  dummy = 'What is the age group of investor?'
+  sportsList = [[
+    {
       id:1,
       name:'sport',
-      value:'Option  1',
-      label:'Option  1'
+      value:' Very Low',
+      label:'Very Low'
     },{
       id:2,
       name:'sport',
-      value:'Option  2',
-      label:'Option  2'
+      value:'Low',
+      label:'Low'
     },{
       id:3,
       name:'sport',
-      value:'Option  3',
-      label:'Option  3'
+      value:'Medium',
+      label:'Medium'
     },{
       id:4,
       name:'sport',
-      value:'Option 4',
-      label:'Option 4'
-    }],[{
+      value:'High',
+      label:'High'
+    },{
       id:5,
       name:'sport',
-      value:'Options 1',
-      label:'Options  1'
-    },{
-      id:6,
-      name:'sport',
-      value:'Options  2',
-      label:'Options  2'
-    },{
-      id:7,
-      name:'sport',
-      value:'Options  3',
-      label:'Options  3'
-    },{
-      id:8,
-      name:'sport',
-      value:'Options 4',
-      label:'Options 4'
+      value:'Very high',
+      label:'Very high'
     }]
   ]
 
@@ -63,7 +54,7 @@ export class InvestorQuestionnaireComponent implements OnInit {
   isCorrect = true;
   constructor(private adminService:AdminService,private router: Router){}
   onclicks(ans:number,question:number){
-      this.map.set(question,ans-1);
+      this.map.set(question,(ans-1));
       console.log(ans);
   }
   get f(){
@@ -73,18 +64,22 @@ export class InvestorQuestionnaireComponent implements OnInit {
   submit(){
     var i:number;
     let risk = 0;
-    let options = 4;
+    let count = 0;
+    let options = 5;
     for(i=0;i<this.questions.length;i++){
       if(!this.map.has(this.questions[i].id)){
         this.isCorrect = false;
       }
-      risk= risk + (this.map.get(this.questions[i].id))%(options);
-
+      else{
+        count++;
+      }
+      let option = (this.map.get(this.questions[i].id));
+      risk= risk + (0.1+(0.2)*(option));
     }
+    if(count==this.questions.length){this.isCorrect = true;}
     risk/=this.questions.length;
-    risk/=(options-1);
     console.log(risk);
-    this.adminService.update_risk(risk,""+localStorage.getItem("sessionID")).subscribe((response)=>{ this.router.navigate(['/admin/dashboard']);},(error)=>{console.log(error);});
+   if(this.isCorrect){this.adminService.update_risk(risk,""+localStorage.getItem("sessionID")).subscribe((response)=>{ this.router.navigate(['/admin/dashboard']);},(error)=>{console.log(error);});}
   }
   
   ngOnInit(): void {

@@ -7,9 +7,10 @@ import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
+import { HomepageComponent } from './homepage/homepage.component';
 
 @NgModule({
-  declarations: [SigninComponent, SignupComponent, AuthComponent],
+  declarations: [SigninComponent, SignupComponent, AuthComponent, HomepageComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

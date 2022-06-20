@@ -4,23 +4,48 @@
     <mat-grid-list cols="15" rowHeight="40px" gutterSize="10px">
         
         <mat-grid-tile class="card" colspan="8"  rowspan="14">
-            <div id = "box0">
+            
+            <ng-container *ngIf="isEmpty">
+                No deposits found
+            </ng-container>
+            <ng-container *ngIf="risk">
+                User has not answered investor questionnaire
+            </ng-container>
+            <div id = "box0" *ngIf="!isEmpty && !risk">
                 <app-type></app-type>
             </div> 
         </mat-grid-tile>
-        <mat-grid-tile class="card" colspan="5"  rowspan="4">
+        <mat-grid-tile *ngIf="!risk"class="card" colspan="5"  rowspan="4">
             <div class="icon">
                 <i class="bi bi-graph-up-arrow"></i>
             </div>
             <div class="deck">
                 <h4>Amount invested</h4>
-                <h1>{{investedAmount | number:'1.2-2' }}₹</h1>
+                <h1>{{investedAmount | number:'1.2-2' }} ₹</h1>
                 <ng-container *ngIf="show">
                         <input  type="number" [(ngModel)]="value" class="input_number" (change)="conss()"
                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"/>
                 </ng-container>
-                <div class="button">
-                <button mat-raised-button color="primary" (click)="openDialog()">{{buttonName}}</button></div>
+                <div class="button" >
+                <button mat-raised-button color="primary" (click)="openDialog()" class="btn">{{buttonName}}</button></div>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile *ngIf="!risk"class="card" colspan="5"  rowspan="4">
+            <div class="icon">
+                <i class="bi bi-cash"></i>
+            </div>
+            <div class="deck">
+                <h4>Withdraw Amount</h4>
+                <h1>{{withDraw}} ₹</h1>
+                <ng-container *ngIf="showWith">
+                        <input  type="number" [(ngModel)]="withDraw" class="input_number" (change)="conss1()"
+                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"/>
+                </ng-container>
+                <div *ngIf="showError" class="warning">
+                    <i class="bi bi-exclamation-circle-fill"></i> Insufficient funds
+                  </div>
+                <div class="button" >
+                <button mat-raised-button color="primary" (click)="openDialog1()" class="btn">{{btnName}}</button></div>
             </div>
         </mat-grid-tile>
     </mat-grid-list>
